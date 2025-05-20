@@ -1,0 +1,52 @@
+{
+  "name": "sui-event-notifier-webapp",
+  "version": "1.0.0",
+  "description": "Sui event notifier and pusher (Web Application)",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "scripts": {
+    "build": "tsc",
+    "start": "node dist/index.js",
+    "dev": "nodemon src/index.ts",
+    "prepublishOnly": "npm run build"
+  },
+  "keywords": [
+    "sui",
+    "events",
+    "blockchain",
+    "web",
+    "dashboard"
+  ],
+  "files": [
+    "dist",
+    "public",
+    "LICENSE",
+    "README.md"
+  ],
+  "author": "",
+  "license": "MIT",
+  "dependencies": {
+    "@mysten/sui.js": "^0.54.1",
+    "express": "^4.19.2",
+    "ws": "^8.17.0"
+  },
+  "devDependencies": {
+    "@types/express": "^4.17.21",
+    "@types/node": "^20.12.12",
+    "@types/ws": "^8.5.10",
+    "nodemon": "^3.1.0",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.4.5"
+  },
+  "engines": {
+    "node": ">=14.0.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/yourusername/sui-event-notifier.git"
+  },
+  "bugs": {
+    "url": "https://github.com/yourusername/sui-event-notifier/issues"
+  },
+  "homepage": "https://github.com/yourusername/sui-event-notifier#readme"
+}

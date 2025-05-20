@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sui Event Monitor</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;700;900&family=Rajdhani:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>SUI EVENT <span class="highlight">MONITOR</span></h1>
+        </div>
+
+        <section id="package-input-section" class="panel">
+            <h2>01 <span class="separator">//</span> Enter Package ID</h2>
+            <div class="input-group">
+                <input type="text" id="packageIdInput" placeholder="Enter Sui Package ID (e.g., 0xabc...)">
+                <button id="fetchEventsButton" class="icon-button"><i class="fas fa-search"></i></button>
+            </div>
+            <p id="loadingMessage" class="loading-text" style="display: none;"><span class="blink">[</span> SCANNING NETWORK <span class="blink">]</span></p>
+        </section>
+
+        <section id="event-list-section" class="panel" style="display: none;">
+            <h2>02 <span class="separator">//</span> Select Event</h2>
+            <p>Available event types for <span id="displayedPackageId" class="mono"></span>:</p>
+            <div class="select-container">
+                <select id="eventTypeDropdown" class="cyberpunk-select"></select>
+                <button id="subscribeButton" class="neon-button icon-button"><i class="fas fa-satellite-dish"></i></button>
+            </div>
+        </section>
+
+        <section id="subscriptions-dashboard" class="panel">
+            <h2>03 <span class="separator">//</span> Active Monitoring</h2>
+            <div id="activeSubscriptions" class="active-subs"></div>
+            <div id="eventFeed" class="event-feed">
+                <h3><span class="blink">[</span> LIVE FEED <span class="blink">]</span></h3>
+                <div class="scroll-container">
+                    <ul id="eventFeedList" class="feed-list"></ul>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html> 
