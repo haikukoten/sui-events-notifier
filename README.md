@@ -75,11 +75,14 @@ cd sui-event-monitor
 # Install dependencies
 npm install
 
-# Start the server
+# Build the application for production
+npm run build
+
+# Start the production server
 npm start
 ```
 
-The web interface will be available at http://localhost:3000.
+The web interface will be available at http://localhost:3002.
 
 ### CLI Tool
 
@@ -94,6 +97,66 @@ npm install
 npm run build
 node dist/cli.js <command>
 ```
+
+## Hosting the Web Application
+
+To host the Sui Event Monitor web application, you'll need a server environment with Node.js installed. Here's a general outline:
+
+1.  **Build the Application**: On your server, or as part of a deployment pipeline, build the application:
+    ```bash
+    git clone https://github.com/yourusername/sui-event-monitor.git
+    cd sui-event-monitor
+    npm install
+    npm run build
+    ```
+
+2.  **Run the Application**: Start the application using the production start script:
+    ```bash
+    npm start
+    ```
+    This will run the server using the compiled JavaScript in the `dist` folder.
+
+3.  **Process Manager (Recommended)**: For long-running applications in production, it's highly recommended to use a process manager like PM2. PM2 can automatically restart your application if it crashes, manage logs, and handle other production concerns.
+    *   Install PM2 globally (if not already installed):
+        ```bash
+        npm install pm2 -g
+        ```
+    *   Start your application with PM2:
+        ```bash
+        pm2 start npm --name "sui-event-monitor" -- run start
+        ```
+    *   To view logs: `pm2 logs sui-event-monitor`
+    *   To monitor: `pm2 monit`
+
+4.  **Web Server / Reverse Proxy (Optional but Recommended)**: For a production deployment, you typically run your Node.js application behind a web server like Nginx or Apache. This web server can handle tasks like:
+    *   SSL termination (HTTPS)
+    *   Serving static assets (though `express.static` also works)
+    *   Load balancing (if you scale to multiple instances)
+    *   Caching
+
+    An example Nginx configuration might look something like this (this is a basic example and would need to be adapted to your server setup and domain):
+
+    ```nginx
+    server {
+        listen 80;
+        server_name yourappdomain.com;
+
+        location / {
+            proxy_pass http://localhost:3002; # Assuming your Node app runs on port 3002
+            proxy_http_version 1.1;
+            proxy_set_header Upgrade $http_upgrade;
+            proxy_set_header Connection 'upgrade';
+            proxy_set_header Host $host;
+            proxy_cache_bypass $http_upgrade;
+        }
+    }
+    ```
+
+5.  **Environment Variables**: If you have any configuration that might change between environments (e.g., API keys, RPC URLs if they weren't hardcoded), use environment variables. You can use a `.env` file with a library like `dotenv` during development, and set actual environment variables in your production environment.
+
+6.  **Firewall**: Ensure your server's firewall is configured to allow traffic on the port your application (or reverse proxy) is listening on (e.g., port 80 for HTTP, port 443 for HTTPS).
+
+These are general steps. The exact deployment process will vary depending on your chosen hosting provider (e.g., AWS, Google Cloud, DigitalOcean, Heroku, Vercel, etc.). Many providers offer specific Node.js deployment guides and tools.
 
 ## Technologies
 
